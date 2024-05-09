@@ -55,6 +55,8 @@ RUN true \
   && rm -rf packages/*/lib \
   && rm -rf packages/webapp/public \
   && rm -rf packages/webapp/node_modules
+# Copy migrations that are deleted in the previous step -motaword
+COPY packages/shared/lib/db/migrations ./packages/shared/lib/db/migrations
 
 # Clean dev dependencies
 RUN true \
@@ -89,3 +91,6 @@ ENV IMAGE_ENV $image_env
 ENV GIT_HASH $git_hash
 
 EXPOSE 8080
+
+# This Dockerfile builds a generic container for all nango apps. By default, we'll run the nango-server package. -motaword
+CMD ["node", "packages/server/dist/server.js"]

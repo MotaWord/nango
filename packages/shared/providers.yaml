@@ -1,3 +1,20 @@
+clio:
+    categories:
+        - legal
+    auth_mode: OAUTH2
+    authorization_url: https://app.clio.com/oauth/authorize
+    token_url: https://app.clio.com/oauth/token
+    proxy:
+        base_url: https://app.clio.com/api/v4
+    scope_separator: ','
+    default_scopes:
+        - offline_access
+    authorization_params:
+        response_type: code
+    token_params:
+        grant_type: authorization_code
+    refresh_params:
+        grant_type: refresh_token
 accelo:
     categories:
         - invoicing

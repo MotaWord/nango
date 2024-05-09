@@ -1,0 +1,39 @@
+version: 0.2
+
+env:
+  variables:
+    # Should be overriden by builder
+    REPOSITORY_URI: 119215188664.dkr.ecr.us-west-2.amazonaws.com/nango
+    DEFAULT_IMAGE_TAG: staging
+    DOCKER_HUB_USERNAME: motawordit
+    DOCKER_HUB_KEY: 1e7a9b39-4131-4cda-9c9e-e6ade28b2d42
+    ENVMODE: dev
+
+phases:
+  pre_build:
+    commands:
+      # Prepare Docker build
+      - aws --version && docker version
+      - echo Logging in to Amazon ECR and Docker Hub...
+      # Log into Docker Hub
+      - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_KEY}
+      # Log into AWS ECR
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin `echo $REPOSITORY_URI | cut -d'/' -f1`
+      # Prepare PHP build
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - COMMIT_TAG=${DEFAULT_IMAGE_TAG:=latest}-${COMMIT_HASH:=latest}-$(date +%s)
+  build:
+    commands:
+      - echo Docker build started at `date`
+      - docker build -t ${REPOSITORY_URI}:${DEFAULT_IMAGE_TAG:=latest} -t ${REPOSITORY_URI}:${COMMIT_TAG:=latest} .
+      - echo Docker build finished at `date`
+  post_build:
+    commands:
+      - echo Builds completed at `date`
+      - echo Pushing the Docker images...
+      - docker push ${REPOSITORY_URI}:${DEFAULT_IMAGE_TAG:=latest}
+      - docker push ${REPOSITORY_URI}:${COMMIT_TAG:=latest}
+      - printf '[{"name":"nango-container","imageUri":"%s"}]' $REPOSITORY_URI:${COMMIT_TAG:=latest} > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json

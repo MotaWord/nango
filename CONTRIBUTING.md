@@ -2,6 +2,8 @@
 
 You can run Nango locally with Docker ([step-by-step guide](https://docs.nango.dev/host/self-host/local)), contribute an API ([step-by-step guide](https://docs.nango.dev/customize/guides/contribute-an-api)) and contribute an integration template ([step-by-step guide](https://docs.nango.dev/contribute-an-integration-template)).
 
+The exact mechanism to build and run multiple containers can be seen here: https://github.com/NangoHQ/nango/blob/master/.github/workflows/build-images.yaml
+
 ## Develop locally
 
 To develop on the platform locally follow those steps:

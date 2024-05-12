@@ -357,7 +357,12 @@ export function resetPasswordSecret() {
 }
 
 export function constructFinalRedirectUrl(finalRedirectUrl: string, queryParams: Record<string, any>) {
-    const url = new URL(finalRedirectUrl);
+    let url;
+    try {
+        url = new URL(finalRedirectUrl);
+    } catch (_) {
+        return null;
+    }
     for (const queryKey in queryParams) {
         let value = queryParams[queryKey];
         if (typeof value !== 'string' && typeof value !== 'number') {

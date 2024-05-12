@@ -204,7 +204,10 @@ export class Publisher {
             }
         }
         if (typeof finalRedirectUrl === 'string') {
-            return res.redirect(constructFinalRedirectUrl(finalRedirectUrl, { providerConfigKey, connectionId, error: wsErr }));
+            const constructedUrl = constructFinalRedirectUrl(finalRedirectUrl, { providerConfigKey, connectionId, error: wsErr });
+            if (constructedUrl) {
+                return res.redirect(constructedUrl);
+            }
         }
         errorHtml(res, wsClientId, wsErr);
     }
@@ -223,7 +226,10 @@ export class Publisher {
             }
         }
         if (typeof finalRedirectUrl === 'string') {
-            return res.redirect(constructFinalRedirectUrl(finalRedirectUrl, { providerConfigKey, connectionId, success: 'success' }));
+            const constructedUrl = constructFinalRedirectUrl(finalRedirectUrl, { providerConfigKey, connectionId, success: 'success' });
+            if (constructedUrl) {
+                return res.redirect(constructedUrl);
+            }
         }
         successHtml(res, wsClientId, providerConfigKey, connectionId);
     }

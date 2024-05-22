@@ -6,7 +6,7 @@ import {
     constructFinalRedirectUrl
 } from './utils.js';
 import type { Template as ProviderTemplate } from '@nangohq/shared';
-import { AuthModes } from '@nangohq/shared';
+import { AuthModes, interpolateString } from '@nangohq/shared';
 
 describe('Utils unit tests', () => {
     it('Should parse config params in authorization_url', () => {
@@ -240,5 +240,13 @@ describe('Utils unit tests', () => {
         expect(result2).toEqual(
             'https://external-website.com/confirm-connection?externalSession=dummy&providerConfigKey=provider-key&connectionId=test-connection-id&error=%7B%22message%22%3A%22failed%22%7D'
         );
+    });
+
+    it('Should place params to string with domain dot awareness', () => {
+        const url = interpolateString('https://${subdomain}.service.com/oauth/authorize', { subdomain: 'myaccount' });
+        expect(url).toEqual('https://myaccount.service.com/oauth/authorize');
+
+        const url2 = interpolateString('https://${subdomain}.service.com/oauth/authorize', { subdomain: '' });
+        expect(url2).toEqual('https://service.com/oauth/authorize');
     });
 });

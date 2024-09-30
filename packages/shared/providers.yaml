@@ -9,6 +9,7 @@ clio:
     scope_separator: ','
     default_scopes:
         - offline_access
+    token_request_auth_method: basic
     authorization_params:
         response_type: code
     token_params:

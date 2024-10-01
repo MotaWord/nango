@@ -1302,7 +1302,7 @@ class OAuthController {
                 content: `Token response was received for ${session.provider} using ${providerConfigKey} for the connection ${connectionId}`,
                 timestamp: Date.now()
             });
-            await logCtx.info('Token response received', { provider: session.provider, providerConfigKey, connectionId });
+            await logCtx.info('Token response received', { provider: session.provider, providerConfigKey, connectionId, rawCredentials });
 
             const tokenMetadata = getConnectionMetadataFromTokenResponse(rawCredentials, template);
 

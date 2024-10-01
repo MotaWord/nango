@@ -64,7 +64,7 @@ RUN true \
 
 # ---- Web ----
 # Resulting new, minimal image
-FROM node:20.12.2-bullseye-slim as web
+FROM node:20.12.2-bullseye-slim AS web
 
 
 # - Bash is just to be able to log inside the image and have a decent shell

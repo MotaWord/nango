@@ -40,6 +40,10 @@ npm run dev:watch:apps
 
 Go to [http://localhost:3000](http://localhost:3000)
 
+If you are encountering an Elasticsearch error like this:
+`index_create_block_exception: [index_create_block_exception] Reason: blocked by: [FORBIDDEN/10/cluster create-index blocked (api)]`
+then clear your local Elasticsearch/Opensearch volume and start with a clean ES container.
+
 ## Run integrations
 
 Start by creating a folder that will contains your integrations

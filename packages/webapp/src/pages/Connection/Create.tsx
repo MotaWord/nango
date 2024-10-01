@@ -627,7 +627,6 @@ nango.${integration?.authMode === AuthModes.None ? 'create' : 'auth'}('${integra
                                             id={`connection-config-${paramName}`}
                                             name={`connection-config-${paramName}`}
                                             type="text"
-                                            required
                                             autoComplete="new-password"
                                             className="border-border-gray bg-active-gray text-text-light-gray focus:border-white focus:ring-white block w-full appearance-none rounded-md border px-3 py-1 text-sm placeholder-gray-400 shadow-sm focus:outline-none"
                                             onChange={handleConnectionConfigParamsChange}

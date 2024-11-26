@@ -1,7 +1,7 @@
 # ------------------
 # New tmp image
 # ------------------
-FROM node:20.12.2-bullseye-slim AS build
+FROM node:20-bullseye-slim AS build
 
 # Setup the app WORKDIR
 WORKDIR /app/tmp
@@ -64,7 +64,7 @@ RUN true \
 
 # ---- Web ----
 # Resulting new, minimal image
-FROM node:20.12.2-bullseye-slim AS web
+FROM node:20-bullseye-slim AS web
 
 
 # - Bash is just to be able to log inside the image and have a decent shell
